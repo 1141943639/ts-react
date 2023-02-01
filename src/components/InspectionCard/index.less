@@ -1,0 +1,150 @@
+.box-wrap {
+  border: 1px solid #E8ECEE;
+  border-radius: 10px;
+}
+
+.inspection {
+  position: relative;
+  height: 270px;
+  background: linear-gradient(108deg, #DBEEFF 1%, #FFFFFF 53%), linear-gradient(111deg, #E2F0FF 16%, #FFFFFF 49%);;
+  padding: 20px;
+  display: flex;
+  flex: 1;
+  flex-shrink: 0;
+
+  .inspection-ability {
+    width: 50%;
+    
+    .ability-title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .ability-content-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .ability-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: #475F7D;
+
+        .content-top {
+          font-size: 12px;
+
+          .ability-big-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #33363B;
+            margin-right: 5px;
+          }
+        }
+
+        .content-bottom {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .last-inspection-res {
+    width: 50%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+
+    .inspection-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      flex-shrink: 0;
+
+      .inspection-title {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .inspection-time {
+        font-size: 12px;
+        color: #A3AFBE;
+      }
+    }
+
+    .inspection-grid-wrap {
+      display: grid;
+      gap: 10px;  
+      width: 100%;
+      flex: 1;
+      flex-wrap: wrap;
+      grid-template-columns: 50% 50%;
+
+      .inspection-grid {
+        padding: 16px 15px 8px;
+        border-radius: 8px;
+
+        &.fault {
+          background: #FFF6F1;
+
+          .text {
+            color: #F45D4C;
+          }
+        }
+
+        &.error {
+          background: #FFF1F1;
+
+          .text {
+            color: #F45D4C;
+          }
+        }
+
+        &.warn {
+          background: #FFFAF1;
+
+          .text {
+            color: #F47B30;
+          }
+        }
+
+        &.normal {
+          background: #F0F7FF;
+
+          .text {
+            color: #336DFF;
+          }
+        }
+
+        .head {
+          display: flex;
+          align-items: center;
+          margin-bottom: 3px;
+          
+          .grid-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 8px;
+            background: #000;
+          }
+
+          .text {
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+
+        .bottom {
+          display: flex;
+          font-size: 20px;
+          font-weight: bold;
+          justify-content: end;
+          color: #33363B;
+        }
+      }
+    }
+  }
+}
