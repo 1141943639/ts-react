@@ -20,7 +20,7 @@
 
 .content {
   border-radius: 12px;
-  overflow: hidden;
+  overflow-y: auto;
   height: 100%;
   background: #fff;
   padding: 20px;
@@ -40,12 +40,17 @@
   .top {
     display: flex;
     column-gap: 20px;
-
-   
+    margin-bottom: 32px;
 
     .inspection-task {
       width: 30%;
       flex-shrink: 0;
     }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
   }
 }

@@ -1,0 +1,73 @@
+.box-wrap {
+  border: 1px solid #E8ECEE;
+  border-radius: 10px;
+}
+
+.chart {
+  padding: 15px 20px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+
+  .head {
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    .left {
+      display: flex;
+      align-items: center;
+
+      .head-title {
+        font-size: 12px;
+        font-weight: bold;
+        white-space: nowrap;
+        margin-right: 20px;
+      }
+
+      .order-select {
+        .arco-select-view {
+          background: #fff;
+          border: 1px solid #D6DDE9;
+          font-size: 12px;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+
+      .default-order {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        margin-right: 12px;
+        cursor: pointer;
+        user-select: none;
+
+        .order-text {
+          color: #1B89FF;
+          margin-right: 4px;
+        }
+      }
+
+      .set-inspection {
+        background: #EBF3FC;
+      }
+    }
+  }
+
+  .chart-wrap {
+    flex: 1;
+    flex-shrink: 0;
+
+    .chart-content {
+      height: 100%;
+    }
+  }
+}
