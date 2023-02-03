@@ -10,7 +10,15 @@ import '@arco-design/web-react/dist/css/arco.css';
 
 function App() {
   const [data, setData] = useState<DataModel | undefined>(undefined);
-
+  const sortClick = ()=>{
+    console.log('默认排序click')
+  }
+  const selectChange = ()=>{
+    console.log('select click')
+  }
+  const buttonClick = ()=>{
+    console.log('buttonClick click')
+  }
   useEffect(() => {
     (async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -85,9 +93,16 @@ function App() {
             showSelect
             title="故障/错误/告警-巡检组"
             buttonText="设置巡检组"
+            sortClick={sortClick}
+            buttonClick={buttonClick}
+            selectChange={selectChange}
             {...data?.inspectionItems}
           />
-          <Chart {...data?.inspectionTeam} title="故障/错误/告警-巡检项" buttonText="设置巡检项" />
+          <Chart 
+            {...data?.inspectionTeam} 
+            sortClick={sortClick} 
+            buttonClick={buttonClick}
+            title="故障/错误/告警-巡检项" buttonText="设置巡检项" />
         </div>
       </div>
     </div>

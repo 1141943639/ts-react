@@ -1,4 +1,5 @@
 import { DataModel } from 'types/DataModel';
+import TaskBg from 'images/task_bg.png';
 import './index.css';
 
 export function InspectionTask(props: { data?: DataModel }) {
@@ -6,11 +7,12 @@ export function InspectionTask(props: { data?: DataModel }) {
 
   return (
     <div className="box-wrap inspection-task">
+      <div className="img-content">
+        <img src={TaskBg} alt="" />
+      </div>
       <div className="head">近7天巡检任务</div>
       <div className="task-content">
-        <div className="img-content">
-          <img src="" alt="" />
-        </div>
+        <div className="placeholder"></div>
         <div className="list">
           <div className="item">
             <div className="label">

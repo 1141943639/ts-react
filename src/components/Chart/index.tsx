@@ -2,7 +2,7 @@ import './index.css';
 import { DataModel } from 'types/DataModel';
 import { Button, Popover, Select } from '@arco-design/web-react';
 import { IconQuestionCircle } from '@arco-design/web-react/icon';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 export default function Chart(props: {
   showSelect?: boolean;
@@ -12,6 +12,9 @@ export default function Chart(props: {
   errorData?: number[];
   warnData?: number[];
   faultData?: number[];
+  selectChange?:(value:string)=>void;
+  buttonClick:(e:Event)=>void;
+  sortClick: (event:MouseEvent<HTMLElement>)=>void;
 }) {
   const {
     showSelect = false,
@@ -21,6 +24,9 @@ export default function Chart(props: {
     warnData = [],
     faultData = [],
     xAxisArr = [],
+    sortClick,
+    buttonClick,
+    selectChange
   } = props;
   const chartEl = useRef<HTMLDivElement>(null);
   const [myChart, setMyChart] = useState<ReturnType<typeof echarts.init>>();
@@ -137,8 +143,11 @@ export default function Chart(props: {
         <div className="left">
           <div className="head-title">{title}</div>
           {showSelect && (
-            <Select className="order-select" defaultValue="order">
+            <Select className="order-select" onChange={selectChange} defaultValue="order">
               <Select.Option style={{ fontSize: '12px' }} value="order">
+                按告警总量排序
+              </Select.Option>
+              <Select.Option style={{ fontSize: '12px' }} value="order2">
                 按告警总量排序
               </Select.Option>
             </Select>
@@ -146,12 +155,12 @@ export default function Chart(props: {
         </div>
         <div className="right">
           <div className="default-order">
-            <div className="order-text">恢复默认排序</div>
+            <div onClick={sortClick} className="order-text">恢复默认排序</div>
             <Popover content={<div>默认排序：告警总数Top10</div>}>
               <IconQuestionCircle style={{ fontSize: '14px' }} />
             </Popover>
           </div>
-          <Button type="secondary" size="mini" className="set-inspection">
+          <Button onClick={buttonClick} type="secondary" size="mini" className="set-inspection">
             {buttonText}
           </Button>
         </div>
