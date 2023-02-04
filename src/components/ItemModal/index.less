@@ -1,0 +1,148 @@
+  .item-modal {
+    width: 840px;
+
+    .content-wrap {
+      flex-direction: column;
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+
+      .content-inner {
+        height: 100%;
+        display: flex;
+      }
+    }
+
+    & > [data-focus-lock-disabled] {
+      height: 540px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .arco-modal-content {
+      flex-direction: column;
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .warn {
+      flex-shrink: 0;
+    }
+
+    .arco-modal-footer {
+      flex-shrink: 0;
+    }
+    
+    .card {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      
+      .card-content {
+        height: 100%;
+        display: flex;
+      }
+
+      .arco-card-header {
+        background: #f5f7fa;
+        padding: 0;
+        height: 28px;
+        padding-left: 20px;
+        flex-shrink: 0;
+      }
+
+      .title {
+        font-size: 12px;
+      }
+
+      .arco-card-body {
+        padding: 0;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .card-item:first-child {
+        border-right: 1px solid #E8ECEE;
+      }
+
+      .card-item {
+        height: 100%;
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+
+        .search-input {
+          margin-bottom: 20px;
+          flex-shrink: 0;
+          
+          .arco-input-inner-wrapper {
+            border-radius: 4px;
+            border: 1px solid #D6DDE9;
+            background: #fff;
+          }
+          
+          .arco-input {
+            font-size: 12px;
+          }
+        }
+
+        .checkbox-group {
+          display: flex;
+          flex-direction: column;
+          overflow-y: auto;
+          flex: 1;
+          
+          .arco-checkbox {
+            font-size: 12px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            margin-right: 0px;
+            padding-left: 0;
+            flex-shrink: 0;
+
+            &:hover {
+              background: #ebf3fc;
+            }
+          }
+    
+          .arco-checkbox-text  {
+            margin-left: 6px;
+          }
+        }
+      }
+    }
+
+    .checkbox-card {
+      width: 67%;
+
+      .card-item {
+        width: 50%;
+      }
+    }
+
+    .arrow-wrap {
+      width: 30px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .selected-card {
+      flex: 1;
+
+      .card-item {
+        flex: 1;
+
+        .arco-checkbox-text {
+          margin-left: 2px !important;
+        }
+      }
+
+      .close-icon {
+        margin-left: 90px;
+      }
+    }
+  }

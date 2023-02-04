@@ -1,24 +1,28 @@
 import { InspectionCard } from 'components/InspectionCard';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DataModel } from 'types/DataModel';
 import './App.css';
 import { ReactComponent as TitleIcon } from './svg/title_icon.svg';
 import { InspectionTask } from 'components/InspectionTask';
 import Chart from 'components/Chart';
 import '@arco-design/web-react/dist/css/arco.css';
+import TeamModal from 'components/TeamModal';
+import ItemModal from 'components/ItemModal';
 
 function App() {
   const [data, setData] = useState<DataModel | undefined>(undefined);
-  const sortClick = ()=>{
-    console.log('默认排序click')
-  }
-  const selectChange = ()=>{
-    console.log('select click')
-  }
-  const buttonClick = ()=>{
-    console.log('buttonClick click')
-  }
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  const [showItemModal, setShowItemsModal] = useState(true);
+  const sortClick = () => {
+    console.log('默认排序click');
+  };
+  const selectChange = () => {
+    console.log('select click');
+  };
+  const buttonClick = () => {
+    console.log('buttonClick click');
+  };
   useEffect(() => {
     (async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -77,6 +81,39 @@ function App() {
     })();
   }, []);
 
+  const teamFormat = useCallback((valueArr: any) => {
+    const [faultData, errorData, warnData] = valueArr;
+    const count = valueArr.reduce((pre: number, val: any) => pre + val.value, 0);
+    const name = faultData.axisValue;
+
+    return `
+      <div style="font-size: 12px;">
+        <span style="font-weight: bold; color: #475F7D;">${name} <br/></span>
+        <span style="color: #738499;">告警/总巡检项：${warnData.value}/${count} <br/></span>
+        <div style="height: 10px;"></div>
+        <span style="color: #33363B;">${faultData.seriesName}：${faultData.value} <br/></span>
+        <span style="color: #33363B;">${errorData.seriesName}：${errorData.value} <br/></span>
+        <span style="color: #33363B;">${warnData.seriesName}：${warnData.value} <br/></span>
+      </div>
+    `;
+  }, []);
+
+  const itemFormat = useCallback((valueArr: any) => {
+    const [faultData, errorData, warnData] = valueArr;
+    const name = faultData.axisValue;
+
+    return `
+      <div style="font-size: 12px;">
+        <span style="font-weight: bold; color: #475F7D;">${name} <br/></span>
+        <span style="color: #738499;">所属：这里是巡检组名称 <br/></span>
+        <div style="height: 10px;"></div>
+        <span style="color: #33363B;">${faultData.seriesName}：${faultData.value} <br/></span>
+        <span style="color: #33363B;">${errorData.seriesName}：${errorData.value} <br/></span>
+        <span style="color: #33363B;">${warnData.seriesName}：${warnData.value} <br/></span>
+      </div>
+    `;
+  }, []);
+
   return (
     <div className="app">
       <div className="content">
@@ -94,17 +131,46 @@ function App() {
             title="故障/错误/告警-巡检组"
             buttonText="设置巡检组"
             sortClick={sortClick}
-            buttonClick={buttonClick}
+            buttonClick={() => {
+              buttonClick();
+              setShowTeamModal(true);
+            }}
             selectChange={selectChange}
-            {...data?.inspectionItems}
+            tooltipFormatter={teamFormat}
+            defaultOrderContent={
+              <>
+                <div>默认排序：</div>
+                <div>告警总数：告警总数Top10</div>
+                <div>分数：从低到高Top10</div>
+              </>
+            }
+            {...data?.inspectionTeam}
           />
-          <Chart 
-            {...data?.inspectionTeam} 
-            sortClick={sortClick} 
-            buttonClick={buttonClick}
-            title="故障/错误/告警-巡检项" buttonText="设置巡检项" />
+          <Chart
+            {...data?.inspectionItems}
+            sortClick={sortClick}
+            buttonClick={() => {
+              buttonClick();
+              setShowItemsModal(true);
+            }}
+            title="故障/错误/告警-巡检项"
+            buttonText="设置巡检项"
+            tooltipFormatter={itemFormat}
+            defaultOrderContent={<div>默认排序：告警总数Top10</div>}
+          />
         </div>
       </div>
+      <TeamModal
+        visible={showTeamModal}
+        onConfirm={() => setShowTeamModal(false)}
+        onCancel={() => setShowTeamModal(false)}
+      />
+
+      <ItemModal
+        visible={showItemModal}
+        onConfirm={() => setShowItemsModal(false)}
+        onCancel={() => setShowItemsModal(false)}
+      />
     </div>
   );
 }

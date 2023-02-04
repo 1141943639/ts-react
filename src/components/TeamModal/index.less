@@ -1,0 +1,51 @@
+  .team-modal {
+    width: 560px;
+
+    .arco-modal-header {
+      flex-shrink: 0;
+    }
+
+    & > [data-focus-lock-disabled] {
+      height: 438px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .arco-modal-content {
+      flex-direction: column;
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .warn {
+      flex-shrink: 0;
+    }
+
+    .arco-modal-footer {
+      flex-shrink: 0;
+    }
+
+    .team-wrap {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+      width: 100%;
+      
+      .checkbox-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        row-gap: 20px;
+        
+        .arco-checkbox {
+          font-size: 12px;
+        }
+  
+        .arco-checkbox-text  {
+          margin-left: 6px;
+        }
+      }
+    }
+  }

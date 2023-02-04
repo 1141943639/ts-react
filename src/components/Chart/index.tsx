@@ -1,8 +1,7 @@
 import './index.css';
-import { DataModel } from 'types/DataModel';
 import { Button, Popover, Select } from '@arco-design/web-react';
 import { IconQuestionCircle } from '@arco-design/web-react/icon';
-import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { MouseEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 export default function Chart(props: {
   showSelect?: boolean;
@@ -12,9 +11,11 @@ export default function Chart(props: {
   errorData?: number[];
   warnData?: number[];
   faultData?: number[];
-  selectChange?:(value:string)=>void;
-  buttonClick:(e:Event)=>void;
-  sortClick: (event:MouseEvent<HTMLElement>)=>void;
+  selectChange?: (value: string) => void;
+  buttonClick: (e: Event) => void;
+  sortClick: (event: MouseEvent<HTMLElement>) => void;
+  tooltipFormatter: Function;
+  defaultOrderContent: ReactNode;
 }) {
   const {
     showSelect = false,
@@ -26,7 +27,9 @@ export default function Chart(props: {
     xAxisArr = [],
     sortClick,
     buttonClick,
-    selectChange
+    selectChange,
+    tooltipFormatter,
+    defaultOrderContent,
   } = props;
   const chartEl = useRef<HTMLDivElement>(null);
   const [myChart, setMyChart] = useState<ReturnType<typeof echarts.init>>();
@@ -37,6 +40,7 @@ export default function Chart(props: {
     setMyChart(chart);
 
     setData(chart);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setData = useCallback(
@@ -61,6 +65,7 @@ export default function Chart(props: {
         },
         tooltip: {
           trigger: 'axis',
+          formatter: tooltipFormatter,
           axisPointer: {
             type: 'shadow',
             shadowStyle: {
@@ -110,12 +115,18 @@ export default function Chart(props: {
             stack: 'total',
             barWidth: '14px',
             data: faultData,
+            itemStyle: {
+              color: '#6290FF',
+            },
           },
           {
             name: '错误',
             type: 'bar',
             stack: 'total',
             data: errorData,
+            itemStyle: {
+              color: '#62CDFF',
+            },
           },
           {
             name: '告警',
@@ -124,13 +135,17 @@ export default function Chart(props: {
             label: {
               show: true,
               position: 'top',
+              formatter: '分数：{c}',
             },
             data: warnData,
+            itemStyle: {
+              color: '#FFB586',
+            },
           },
         ],
       });
     },
-    [myChart, xAxisArr, errorData, warnData, faultData]
+    [myChart, xAxisArr, tooltipFormatter, errorData, warnData, faultData]
   );
 
   useEffect(() => {
@@ -155,8 +170,10 @@ export default function Chart(props: {
         </div>
         <div className="right">
           <div className="default-order">
-            <div onClick={sortClick} className="order-text">恢复默认排序</div>
-            <Popover content={<div>默认排序：告警总数Top10</div>}>
+            <div onClick={sortClick} className="order-text">
+              恢复默认排序
+            </div>
+            <Popover content={defaultOrderContent}>
               <IconQuestionCircle style={{ fontSize: '14px' }} />
             </Popover>
           </div>

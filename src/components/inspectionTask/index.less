@@ -61,17 +61,48 @@
           display: flex;
           align-items: center;
 
-          .icon {
+          .icon-bg {
             width: 24px;
             height: 24px;
-            background: #000;
             margin-right: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon {
+              width: 12px;
+            }
           }
 
           .text {
             color: #475F7D; 
             font-size: 12px;
           }
+        }
+      }
+
+      .under-implementation {
+        .icon-bg {
+          background: #e6eeff;
+        }
+      }
+
+      .success-implementation {
+        .icon-bg {
+          background: #e5f4f2;
+        }
+      }
+
+      .error-implementation {
+        .icon-bg {
+          background: #f5ebef;
+        }
+      }
+
+      .not-started {
+        .icon-bg {
+          background: #eef4fb;
         }
       }
     }
